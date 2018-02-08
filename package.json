@@ -1,0 +1,65 @@
+{
+  "name": "commentizer",
+  "version": "0.0.0-development",
+  "description": "Add jsdoc style comments to functions and class methods",
+  "bin": {
+    "commentizer": "./bin/commentizer.js"
+  },
+  "author": "Brian Schemp",
+  "license": "MIT",
+  "main": "./index.js",
+  "engines": {
+    "node": ">=8"
+  },
+  "keywords": [
+    "jsdoc",
+    "comments",
+    "generator",
+    "ast"
+  ],
+  "jest": {
+    "testMatch": [
+      "**/__tests__/unit/*.js"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "index.js"
+    ],
+    "coverageDirectory": "./coverage",
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "html"
+    ]
+  },
+  "dependencies": {
+    "globby": "7.1.1",
+    "recast": "0.13.0"
+  },
+  "devDependencies": {
+    "codecov": "3.0.0",
+    "commitizen": "2.9.6",
+    "cz-conventional-changelog": "2.1.0",
+    "eslint": "4.17.0",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-prettier": "2.6.0",
+    "jest": "22.1.4",
+    "prettier": "1.10.2",
+    "semantic-release": "^12.4.1"
+  },
+  "scripts": {
+    "test": "jest --verbose",
+    "commit": "git-cz",
+    "pretest": "npm run lint",
+    "lint": "npm run src-lint && npm run test-lint",
+    "src-lint": "eslint --fix src/*.js",
+    "test-lint": "prettier --write \"__tests__/unit/*.js\"",
+    "semantic-release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/schempy/commentizer.git"
+  }
+}
