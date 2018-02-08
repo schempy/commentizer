@@ -15,7 +15,7 @@
     "jsdoc",
     "comments",
     "generator",
-    "ast"
+    "parse"
   ],
   "jest": {
     "testMatch": [
@@ -61,5 +61,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/schempy/commentizer.git"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   }
 }

@@ -1,17 +1,17 @@
 # Commenterize
 
 <p align="center">
-  <a href="https://travis-ci.org/schempy/commenterize">
+  <a href="https://travis-ci.org/schempy/commentizer">
     <img alt="Travis" src="https://img.shields.io/travis/schempy/platelunch/master.svg?style=flat-square">
   </a>
-  <a href="https://codecov.io/gh/schempy/commenterize">
+  <a href="https://codecov.io/gh/schempy/commentizer">
     <img alt="Codecov" src="https://img.shields.io/codecov/c/github/schempy/platelunch.svg?style=flat-square">
   </a>
-  <a href="https://www.npmjs.com/package/commenterize">
+  <a href="https://www.npmjs.com/package/commentizer">
     <img alt="npm version" src="https://img.shields.io/npm/v/platelunch.svg?style=flat-square">
   </a>
   <a href="#badge">
-    <img alt="code style: commenterize" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square">
+    <img alt="code style: commentizer" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square">
   </a>
   <a href="#badge">
     <img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
