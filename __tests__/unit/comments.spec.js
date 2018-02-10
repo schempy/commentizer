@@ -1,4 +1,4 @@
-const comments = require("../../src/comments");
+const generateCode = require("../util/generate-code");
 
 describe("Comments", () => {
   test("should generate comments and keep code that is not a function", () => {
@@ -20,13 +20,15 @@ describe("Comments", () => {
        */
       function bar() {
         return true;
-      }
-    `;
+     }`
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
+
   test("should generate comments for a function declaration with no paramters", () => {
     const code = `
       function foo() {}
@@ -38,9 +40,11 @@ describe("Comments", () => {
        *
        */
       function foo() {}
-    `;
+    `
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -61,10 +65,11 @@ describe("Comments", () => {
        */
       function add(num1, num2) {
         return num1 + num2;
-      }
-    `;
+      }`
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -85,10 +90,11 @@ describe("Comments", () => {
        */
       function add(num1 = 0, num2 = 0) {
         return num1 - num2;
-      }
-    `;
+      }`
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -104,9 +110,11 @@ describe("Comments", () => {
        *
        */
       const foo = function() {};
-    `;
+    `
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -120,17 +128,18 @@ describe("Comments", () => {
 
     const expected = `
       /**
-       * add
-       * @param {} num1
-       * @param {} num2
-       * @returns {}
-       */
+      * add
+      * @param {} num1
+      * @param {} num2
+      * @returns {}
+      */
       var add = function (num1, num2) {
         return num1 + num2;
-      };
-    `;
+      };`
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -151,10 +160,11 @@ describe("Comments", () => {
        */
       const add = function(num1 = 0, num2 = 0) {
         return num1 + num2;
-      };
-    `;
+      };`
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -179,10 +189,12 @@ describe("Comments", () => {
         add(num1, num2) {
           return num1 + num2;
         }
-      }
-    `;
 
-    const output = comments.generate(code);
+      }`
+      .replace(/ /g, "")
+      .trim();
+
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -190,9 +202,7 @@ describe("Comments", () => {
   test("should generate comments for a class constructor", () => {
     const code = `
       class TestClass {
-        constructor() {
-
-        }
+        constructor() {}
       }
     `;
 
@@ -202,13 +212,13 @@ describe("Comments", () => {
          * constructor
          *
          */
-        constructor() {
+        constructor() {}
 
-        }
-      }
-    `;
+      }`
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -229,10 +239,11 @@ describe("Comments", () => {
        */
       export default function add(num1, num2) {
         return num1 + num2;
-      }
-    `;
+      }`
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -257,10 +268,11 @@ describe("Comments", () => {
         add: function(num1, num2) {
           return num1 + num2;
         }
-      };
-    `;
+      };`
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -281,10 +293,11 @@ describe("Comments", () => {
        */
       export default function(num1, num2) {
         return num1 + num2;
-      }
-    `;
+      }`
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -302,7 +315,8 @@ describe("Comments", () => {
       }
       function foo() {
         return true;
-      }`;
+      }
+    `;
 
     const expected = `
       /**
@@ -314,6 +328,7 @@ describe("Comments", () => {
       function add(num1, num2) {
         return num1 + num2;
       }
+
       /**
        * foo
        *
@@ -321,9 +336,11 @@ describe("Comments", () => {
        */
       function foo() {
         return true;
-      }`;
+      }`
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -344,10 +361,11 @@ describe("Comments", () => {
        */
       const add = (num1, num2) => {
         return num1 + num2;
-      };
-    `;
+      };`
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -362,10 +380,11 @@ describe("Comments", () => {
     const expected = `
       callback(function () {
         return true;
-      });
-    `;
+      });`
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
   });
@@ -380,11 +399,56 @@ describe("Comments", () => {
     const expected = `
       callback(() => {
         return true;
-      });
-    `;
+      });`
+      .replace(/ /g, "")
+      .trim();
 
-    const output = comments.generate(code);
+    const output = generateCode(code);
 
     expect(output).toBe(expected);
+  });
+
+  test("should generate commetns for ES6 class using decorators", () => {
+    const code = `
+      @inject(EventAggregator)
+
+      export class TestClass {
+        add(num1, num2) {
+          return num1 + num2;
+        }
+      };
+    `;
+
+    const expected = `
+      @inject(EventAggregator)
+      export class TestClass {
+        /**
+         * add
+         * @param {} num1
+         * @param {} num2
+         * @returns {}
+         */
+        add(num1, num2) {
+          return num1 + num2;
+        }
+
+      }
+      ;`
+      .replace(/ /g, "")
+      .trim();
+
+    const output = generateCode(code);
+
+    expect(output).toBe(expected);
+  });
+
+  test("should throw a parse error", () => {
+    const code = `
+      fun() {}
+    `;
+
+    expect(() => {
+      generateCode(code);
+    }).toThrow();
   });
 });

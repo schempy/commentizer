@@ -1,12 +1,13 @@
-const recast = require("recast");
-const types = recast.types;
-const n = recast.types.namedTypes;
+const babylon = require("babylon");
+const t = require("@babel/types");
+const babelGenerate = require("@babel/generator").default;
+const traverse = require("@babel/traverse").default;
 
 function getParams(nodes) {
   const params = nodes.reduce((acc, param) => {
-    if (n.Identifier.check(param)) {
+    if (t.isIdentifier(param)) {
       acc.push(param.name);
-    } else if (n.AssignmentPattern.check(param)) {
+    } else if (t.isAssignmentPattern(param)) {
       acc.push(param.left.name);
     }
 
@@ -18,7 +19,7 @@ function getParams(nodes) {
 
 function doesReturn(node) {
   const returnFlg = node.body.body.some(element => {
-    return n.ReturnStatement.check(element);
+    return t.isReturnStatement(element);
   });
 
   return returnFlg;
@@ -39,23 +40,21 @@ function addComments(path) {
   let name = null;
   let commentStr = null;
 
-  if (n.FunctionDeclaration.check(path.node)) {
-    if (n.ExportDefaultDeclaration.check(path.parentPath.node)) {
-      node = path.parentPath.node;
+  if (t.isFunctionDeclaration(path.node)) {
+    if (t.isExportDefaultDeclaration(path.parent)) {
+      node = path.parent;
     } else {
       node = path.node;
     }
 
     name = path.node.id ? path.node.id.name : "";
-  }
-
-  if (n.VariableDeclarator.check(path.parentPath.node)) {
+  } else if (t.isClassMethod(path.node)) {
+    node = path.node;
+    name = path.node.key.name;
+  } else if (t.isVariableDeclarator(path.parentPath.node)) {
     name = path.parentPath.node.id.name;
     node = path.parentPath.parentPath.node;
-  } else if (n.MethodDefinition.check(path.parentPath.node)) {
-    node = path.parentPath.node;
-    name = path.parentPath.node.key.name;
-  } else if (n.Property.check(path.parentPath.node)) {
+  } else if (t.isProperty(path.parentPath.node)) {
     node = path.parentPath.node;
     name = path.parentPath.node.key.name;
   }
@@ -70,32 +69,59 @@ function addComments(path) {
     commentStr = commentStr + `* @returns {}\n `;
   }
 
-  if (!node.comments) {
-    node.comments = [
-      {
-        leading: true,
-        trailing: false,
-        type: "Block",
-        value: commentStr
-      }
-    ];
+  if (!node.leadingComments) {
+    const comments = {
+      type: "CommentBlock",
+      value: commentStr
+    };
+
+    node.leadingComments = [comments];
   }
 }
 
 function generate(code) {
-  const ast = recast.parse(code);
+  const opts = {
+    sourceType: "module",
+    allowImportExportEverywhere: false,
+    plugins: [
+      "jsx",
+      "flow",
+      "doExpressions",
+      "decorators",
+      "classProperties",
+      "asyncGenerators"
+    ]
+  };
 
-  types.visit(ast, {
-    visitFunction: function(path) {
-      addComments(path);
+  try {
+    const ast = babylon.parse(code, opts);
 
-      return false;
-    }
-  });
+    traverse(ast, {
+      ClassMethod(path) {
+        addComments(path);
+      },
 
-  const output = recast.print(ast).code;
+      FunctionDeclaration(path) {
+        addComments(path);
+      },
 
-  return output;
+      FunctionExpression(path) {
+        addComments(path);
+      },
+
+      ArrowFunctionExpression(path) {
+        addComments(path);
+      }
+    });
+
+    const output = babelGenerate(ast, {
+      quotes: "double"
+    });
+
+    return output.code;
+  } catch (err) {
+    throw err;
+  }
 }
 
 module.exports = {

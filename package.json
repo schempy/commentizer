@@ -35,9 +35,13 @@
     ]
   },
   "dependencies": {
+    "@babel/generator": "7.0.0-beta.39",
+    "@babel/template": "7.0.0-beta.39",
+    "@babel/traverse": "7.0.0-beta.39",
+    "@babel/types": "7.0.0-beta.39",
+    "babylon": "6.18.0",
     "globby": "7.1.1",
-    "minimist": "1.2.0",
-    "recast": "0.13.0"
+    "minimist": "1.2.0"
   },
   "devDependencies": {
     "codecov": "3.0.0",
