@@ -1,5 +1,7 @@
 # Commentizer
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/schempy/commentizer.svg)](https://greenkeeper.io/)
+
 <p align="center">
   <a href="https://travis-ci.org/schempy/commentizer">
     <img alt="Travis" src="https://img.shields.io/travis/schempy/commentizer/master.svg?style=flat-square">
