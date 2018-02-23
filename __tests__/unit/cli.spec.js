@@ -72,12 +72,12 @@ describe("cli", () => {
 
     jest.spyOn(console, "error").mockImplementation(err => (errorMsg = err));
 
-    process.argv = ["some-directory", "some-directory", ""];
+    process.argv = ["some-directory", "some-directory", 1234];
 
     require("../../bin/commentizer");
 
     const expected =
-      "Unable to expand glob patterns:  !**/node_modules/** !./node_modules/**";
+      "Unable to expand glob patterns: 1234 !**/node_modules/** !./node_modules/**";
 
     expect(errorMsg).toBe(expected);
   });
