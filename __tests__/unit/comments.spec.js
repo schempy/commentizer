@@ -408,32 +408,31 @@ describe("Comments", () => {
     expect(output).toBe(expected);
   });
 
-  test("should generate commetns for ES6 class using decorators", () => {
+  test("should generate comments for ES6 class using decorators", () => {
     const code = `
-      @inject(EventAggregator)
-
-      export class TestClass {
+      @SomeDecorator
+      class TestClass {
         add(num1, num2) {
           return num1 + num2;
         }
-      };
+      }
     `;
 
     const expected = `
-      @inject(EventAggregator)
-      export class TestClass {
-        /**
-         * add
-         * @param {} num1
-         * @param {} num2
-         * @returns {}
-         */
-        add(num1, num2) {
-          return num1 + num2;
-        }
-
+  @SomeDecorator
+    class TestClass {
+      /**
+      * add
+      * @param {} num1
+      * @param {} num2
+      * @returns {}
+      */
+      add(num1, num2) {
+        return num1 + num2;
       }
-      ;`
+
+    }
+  `
       .replace(/ /g, "")
       .trim();
 

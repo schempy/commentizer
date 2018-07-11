@@ -1,4 +1,4 @@
-const babylon = require("babylon");
+const babylon = require("@babel/parser");
 const t = require("@babel/types");
 const babelGenerate = require("@babel/generator").default;
 const traverse = require("@babel/traverse").default;
@@ -114,9 +114,7 @@ function generate(code) {
       }
     });
 
-    const output = babelGenerate(ast, {
-      quotes: "double"
-    });
+    const output = babelGenerate(ast, {});
 
     return output.code;
   } catch (err) {
