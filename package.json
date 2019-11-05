@@ -39,7 +39,7 @@
     "@babel/parser": "7.7.0",
     "@babel/template": "7.7.0",
     "@babel/traverse": "7.7.0",
-    "@babel/types": "7.0.0-beta.52",
+    "@babel/types": "7.7.0",
     "globby": "8.0.1",
     "minimist": "1.2.0"
   },
