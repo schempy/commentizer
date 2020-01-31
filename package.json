@@ -44,7 +44,7 @@
     "minimist": "1.2.0"
   },
   "devDependencies": {
-    "codecov": "3.0.1",
+    "codecov": "3.6.3",
     "commitizen": "2.10.0",
     "cz-conventional-changelog": "2.1.0",
     "eslint": "4.19.1",
